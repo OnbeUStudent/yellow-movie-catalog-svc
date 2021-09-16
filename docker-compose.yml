@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  dii_moviecatalogsvc:
+    image: ${DOCKER_REGISTRY-}diimoviecatalogsvc
+    build:
+      context: .
+      dockerfile: src/Dii_MovieCatalogSvc/Dockerfile
+  dii_moviecatalogsvc-dapr:
+     image: "daprio/daprd:latest"
+     command: [ "./daprd", "-app-id", "diimoviecatalogsvc", "-app-port", "80" ]
+     depends_on:
+        - dii_moviecatalogsvc
+     network_mode: "service:dii_moviecatalogsvc"
