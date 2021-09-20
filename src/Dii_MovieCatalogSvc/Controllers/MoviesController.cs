@@ -4,7 +4,6 @@ using dii_MovieCatalogSvc.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System;
 
 namespace dii_MovieCatalogSvc.Controllers
 {
@@ -30,15 +29,11 @@ namespace dii_MovieCatalogSvc.Controllers
 
         // GET: api/Movies/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Movie>> GetMovie(string id)
+        public async Task<ActionResult<Movie>> GetMovie(long id)
         {
-            if (!Guid.TryParse(id, out Guid movieIdAsGuid))
-            {
-                return NotFound();
-            }
             var movie = await _context.Movie
                 .Include(movie => movie.MovieMetadata)
-                .SingleOrDefaultAsync(movie => movie.MovieId == movieIdAsGuid);
+                .SingleOrDefaultAsync(movie => movie.MovieId == id);
             if (movie == null)
             {
                 return NotFound();
@@ -51,13 +46,9 @@ namespace dii_MovieCatalogSvc.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> PutMovie(string id, Movie movie)
+        public async Task<IActionResult> PutMovie(long id, Movie movie)
         {
-            if (!Guid.TryParse(id, out Guid movieIdAsGuid))
-            {
-                return NotFound();
-            }
-            if (movieIdAsGuid != movie.MovieId)
+            if (id != movie.MovieId)
             {
                 return BadRequest();
             }
@@ -70,7 +61,7 @@ namespace dii_MovieCatalogSvc.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!MovieExists(movieIdAsGuid))
+                if (!MovieExists(id))
                 {
                     return NotFound();
                 }
@@ -114,13 +105,9 @@ namespace dii_MovieCatalogSvc.Controllers
         // PUT: api/MovieMetadatas/5/MovieMetadatas
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}/MovieMetadatas")]
-        public async Task<IActionResult> PutMovieMetadata(string id, MovieMetadata movieMetadata)
+        public async Task<IActionResult> PutMovieMetadata(long id, MovieMetadata movieMetadata)
         {
-            if (!Guid.TryParse(id, out Guid movieIdAsGuid))
-            {
-                return NotFound();
-            }
-            if (movieIdAsGuid != movieMetadata.MovieMetadataId)
+            if (id != movieMetadata.MovieMetadataId)
             {
                 return BadRequest();
             }
@@ -133,7 +120,7 @@ namespace dii_MovieCatalogSvc.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!MovieExists(movieIdAsGuid))
+                if (!MovieExists(id))
                 {
                     return NotFound();
                 }
@@ -146,7 +133,7 @@ namespace dii_MovieCatalogSvc.Controllers
             return NoContent();
         }
 
-        private bool MovieExists(Guid id)
+        private bool MovieExists(long id)
         {
             return _context.Movie.Any(e => e.MovieId == id);
         }

@@ -1,11 +1,10 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace dii_MovieCatalogSvc.Data
 {
     public class Movie
     {
-        public Guid MovieId { get; set; }
+        public long MovieId { get; set; }
 
         public MovieMetadata MovieMetadata { get; set; }
 
