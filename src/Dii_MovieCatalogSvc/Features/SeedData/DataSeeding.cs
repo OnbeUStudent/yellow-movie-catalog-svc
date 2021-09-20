@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System;
 
 namespace dii_MovieCatalogSvc.Features.SeedData
 {
@@ -31,13 +32,20 @@ namespace dii_MovieCatalogSvc.Features.SeedData
 
         public static void SeedData(MovieCatalogSvcContext context)
         {
+            long longMovieId = 0;
             foreach (string json in GetJsonAssets("Assets.MovieMetadata"))
             {
                 var movieMetadata = MovieMetadata.FromJson(json);
                 if (!context.MovieMetadatas.Any(m => m.ImdbId == movieMetadata.ImdbId))
                 {
+                    longMovieId++;
+                    byte[] guidData = new byte[16];
+                    Array.Copy(BitConverter.GetBytes(longMovieId), guidData, 8);
+                    var guidMovieId = new Guid(guidData);
+
                     var movie = new Movie
                     {
+                        MovieId = guidMovieId,
                         Title = movieMetadata.Title,
                         MovieMetadata = movieMetadata
                     };
