@@ -19,7 +19,7 @@ namespace dii_MovieCatalogSvc.Data
     public partial class MovieMetadata
     {
         [JsonIgnore]
-        public long MovieMetadataId { get; set; }
+        public Guid MovieMetadataId { get; set; }
 
         [JsonProperty("Title")]
         [Required]
