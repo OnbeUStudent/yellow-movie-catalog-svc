@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using onbe.logging.attributes;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
@@ -27,50 +28,65 @@ namespace dii_MovieCatalogSvc.Data
 
         [JsonProperty("imdbID")]
         [MaxLength(32)]
+        [LogMasked(ShowLast = 4, Text = "X")]
         public string ImdbId { get; set; }
 
         [JsonProperty("Year")]
+        [NotLogged]
         public string Year { get; set; }
 
         [JsonProperty("Rated")]
+        [NotLogged]
         public string Rated { get; set; }
 
         [JsonProperty("Released")]
+        [NotLogged]
         public string Released { get; set; }
 
         [JsonProperty("Runtime")]
+        [NotLogged]
         public string Runtime { get; set; }
 
         [JsonProperty("Genre")]
+        [NotLogged]
         public string Genre { get; set; }
 
         [JsonProperty("Director")]
+        [NotLogged]
         public string Director { get; set; }
 
         [JsonProperty("Writer")]
+        [NotLogged]
         public string Writer { get; set; }
 
         [JsonProperty("Actors")]
+        [NotLogged]
         public string Actors { get; set; }
 
         [JsonProperty("Plot")]
+        [NotLogged]
         public string Plot { get; set; }
 
         [JsonProperty("Language")]
+        [NotLogged]
         public string Language { get; set; }
 
         [JsonProperty("Country")]
+        [NotLogged]
         public string Country { get; set; }
 
         [JsonProperty("Awards")]
+        [NotLogged]
         public string Awards { get; set; }
 
         [JsonProperty("Poster")]
+        [NotLogged]
         public Uri Poster { get; set; }
 
         // Note that we removed the Ratings array because it was too complicated to make work with EF Core.
 
         [JsonProperty("Metascore")]
+        [NotLogged]
         public string Metascore { get; set; }
 
         [JsonProperty("imdbRating")]

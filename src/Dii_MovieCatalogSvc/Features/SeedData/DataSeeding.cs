@@ -1,8 +1,8 @@
 ﻿using dii_MovieCatalogSvc.Data;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System;
 
 namespace dii_MovieCatalogSvc.Features.SeedData
 {
