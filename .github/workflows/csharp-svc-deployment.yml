@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 env:
-  APP_NAME: Dii_MovieCatalog_Svc
+  APP_NAME: Dii_MovieCatalogSvc
   PACT_PACTICIPANT: yellow-movie-catalog-svc
   VERIFY_PROVIDER_PACT: 'false'
 
